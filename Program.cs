@@ -1,12 +1,29 @@
 using Microsoft.EntityFrameworkCore;
+using BookMatch.Data;
+using BookMatch.Repositories.Interfaces;
+using BookMatch.Repositories.Implementations;
+using BookMatch.Services.Interfaces;
+using BookMatch.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<BookMatch.Data.ApplicationDbContext>(options =>
+builder.Services.AddDbContext<BookMatch.Data.BookMatchContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register repositories
+builder.Services.AddScoped<ILibroRepository, LibroRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ICarritoRepository, CarritoRepository>();
+builder.Services.AddScoped<IOrdenRepository, OrdenRepository>();
+
+// Register services
+builder.Services.AddScoped<ILibroService, LibroService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ICarritoService, CarritoService>();
+builder.Services.AddScoped<IOrdenService, OrdenService>();
 
 var app = builder.Build();
 
