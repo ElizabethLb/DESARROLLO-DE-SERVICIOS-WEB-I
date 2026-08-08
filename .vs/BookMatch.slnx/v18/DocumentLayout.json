@@ -1,0 +1,275 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\ordendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\ordendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\carritodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\carritodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\respuestasusuariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\respuestasusuariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\idiomadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\idiomadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\opcionrespuestadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\opcionrespuestadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\preguntadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\preguntadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\valoraciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\valoraciondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\librodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\librodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\categoriadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\categoriadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\usuariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\usuariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\dtos\\roldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:dtos\\roldto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\bookmatch.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:bookmatch.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|c:\\users\\nicol\\onedrive\\escritorio\\ciclo 5\\modulo 1\\desarrollo de servicios web i\\proyectos\\proyecto final\\bookmatch\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CE97D23-7E99-C6BE-9B3E-C47EBB920246}|BookMatch.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 14,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrdenDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\OrdenDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\OrdenDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\OrdenDto.cs",
+              "RelativeToolTip": "Dtos\\OrdenDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:36:49.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CarritoDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\CarritoDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\CarritoDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\CarritoDto.cs",
+              "RelativeToolTip": "Dtos\\CarritoDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:36:18.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RespuestasUsuarioDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\RespuestasUsuarioDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\RespuestasUsuarioDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\RespuestasUsuarioDto.cs",
+              "RelativeToolTip": "Dtos\\RespuestasUsuarioDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:35:44.793Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OpcionRespuestaDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\OpcionRespuestaDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\OpcionRespuestaDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\OpcionRespuestaDto.cs",
+              "RelativeToolTip": "Dtos\\OpcionRespuestaDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:35:21.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PreguntaDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\PreguntaDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\PreguntaDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\PreguntaDto.cs",
+              "RelativeToolTip": "Dtos\\PreguntaDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:34:52.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ValoracionDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\ValoracionDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\ValoracionDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\ValoracionDto.cs",
+              "RelativeToolTip": "Dtos\\ValoracionDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:34:23.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LibroDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\LibroDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\LibroDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\LibroDto.cs",
+              "RelativeToolTip": "Dtos\\LibroDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:34:07.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IdiomaDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\IdiomaDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\IdiomaDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\IdiomaDto.cs",
+              "RelativeToolTip": "Dtos\\IdiomaDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:33:17.412Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:33:02.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CategoriaDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\CategoriaDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\CategoriaDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\CategoriaDto.cs",
+              "RelativeToolTip": "Dtos\\CategoriaDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:32:50.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAABBwAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:32:50.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UsuarioDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\UsuarioDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\UsuarioDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\UsuarioDto.cs",
+              "RelativeToolTip": "Dtos\\UsuarioDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:32:33.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BookMatch",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\BookMatch.csproj",
+              "RelativeDocumentMoniker": "BookMatch.csproj",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\BookMatch.csproj",
+              "RelativeToolTip": "BookMatch.csproj",
+              "ViewState": "AgIAABIAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-08-08T00:32:19.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RolDto.cs",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\RolDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\RolDto.cs",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\Dtos\\RolDto.cs",
+              "RelativeToolTip": "Dtos\\RolDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-08T00:32:11.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Nicol\\OneDrive\\Escritorio\\Ciclo 5\\Modulo 1\\Desarrollo De Servicios Web I\\Proyectos\\Proyecto final\\BookMatch\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-08T00:02:06.716Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

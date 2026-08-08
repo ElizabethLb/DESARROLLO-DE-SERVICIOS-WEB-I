@@ -1,0 +1,9 @@
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.csproj.AssemblyReference.cache
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.AssemblyInfoInputs.cache
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.AssemblyInfo.cs
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.csproj.CoreCompileInputs.cache
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.RazorAssemblyInfo.cache
+C:\Users\Nicol\OneDrive\Escritorio\Ciclo 5\Modulo 1\Desarrollo De Servicios Web I\Proyectos\Proyecto final\BookMatch\obj\Debug\net10.0\BookMatch.RazorAssemblyInfo.cs
