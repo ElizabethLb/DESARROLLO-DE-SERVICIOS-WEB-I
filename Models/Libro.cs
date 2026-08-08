@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookMatchBD.Models
+namespace BookMatch.Models
 {
     [Table("Libros")]
     public class Libro

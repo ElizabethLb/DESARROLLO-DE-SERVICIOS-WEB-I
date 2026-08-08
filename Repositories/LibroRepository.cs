@@ -72,17 +72,17 @@ namespace BookMatch.Repositories.Implementations
             command.CommandText = "sp_PublicarLibro";
             command.CommandType = System.Data.CommandType.StoredProcedure;
 
-            // Si LibroId > 0 enviamos el id, sino DBNull (nuevo registro)
-            command.Parameters.Add(new SqlParameter("@LibroId", libro.LibroId > 0 ? (object)libro.LibroId : DBNull.Value));
+            // Si LibroID > 0 enviamos el id, sino DBNull (nuevo registro)
+            command.Parameters.Add(new SqlParameter("@LibroId", libro.LibroID > 0 ? (object)libro.LibroID : DBNull.Value));
             command.Parameters.Add(new SqlParameter("@Titulo", libro.Titulo));
-            command.Parameters.Add(new SqlParameter("@CategoriaId", libro.CategoriaId));
-            command.Parameters.Add(new SqlParameter("@IdiomaId", libro.IdiomaId));
-            command.Parameters.Add(new SqlParameter("@AutorId", libro.AutorId));
+            command.Parameters.Add(new SqlParameter("@CategoriaId", libro.CategoriaID));
+            command.Parameters.Add(new SqlParameter("@IdiomaId", libro.IdiomaID));
+            command.Parameters.Add(new SqlParameter("@AutorId", libro.AutorID));
             command.Parameters.Add(new SqlParameter("@Precio", libro.Precio));
             command.Parameters.Add(new SqlParameter("@EsGratuito", libro.EsGratuito));
-            command.Parameters.Add(new SqlParameter("@Descripcion", (object?)libro.Descripcion ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@PortadaUrl", (object?)libro.PortadaUrl ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ArchivoUrl", (object?)libro.ArchivoUrl ?? DBNull.Value));
+            command.Parameters.Add(new SqlParameter("@Descripcion", (object?)libro.Sinopsis ?? DBNull.Value));
+            command.Parameters.Add(new SqlParameter("@PortadaUrl", (object?)libro.Portada ?? DBNull.Value));
+            command.Parameters.Add(new SqlParameter("@ArchivoUrl", (object?)libro.ArchivoURL ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@Estado", libro.Estado));
 
             var idParam = new SqlParameter("@LibroIdResultado", System.Data.SqlDbType.Int)
@@ -97,10 +97,10 @@ namespace BookMatch.Repositories.Implementations
         }
 
         public async Task<IEnumerable<Libro>> GetByAutorAsync(int usuarioId)
-            => await _dbSet.Where(l => l.AutorId == usuarioId).AsNoTracking().ToListAsync();
+            => await _dbSet.Where(l => l.AutorID == usuarioId).AsNoTracking().ToListAsync();
 
         public async Task<IEnumerable<Libro>> GetByCategoriaAsync(int categoriaId)
-            => await _dbSet.Where(l => l.CategoriaId == categoriaId).AsNoTracking().ToListAsync();
+            => await _dbSet.Where(l => l.CategoriaID == categoriaId).AsNoTracking().ToListAsync();
 
         /// <summary>
         /// Mapea manualmente el SqlDataReader a la entidad Libro.
@@ -111,16 +111,16 @@ namespace BookMatch.Repositories.Implementations
         {
             return new Libro
             {
-                LibroId = reader.GetInt32(reader.GetOrdinal("LibroId")),
+                LibroID = reader.GetInt32(reader.GetOrdinal("LibroId")),
                 Codigo = reader["Codigo"]?.ToString(),
                 Titulo = reader["Titulo"]?.ToString() ?? string.Empty,
-                CategoriaId = reader.GetInt32(reader.GetOrdinal("CategoriaId")),
-                IdiomaId = reader.GetInt32(reader.GetOrdinal("IdiomaId")),
-                AutorId = reader.GetInt32(reader.GetOrdinal("AutorId")),
-                Precio = reader["Precio"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Precio"]),
-                EsGratuito = reader["EsGratuito"] != DBNull.Value && Convert.ToBoolean(reader["EsGratuito"]),
-                Descripcion = reader["Descripcion"]?.ToString(),
-                PortadaUrl = reader["PortadaUrl"]?.ToString(),
+                CategoriaID = reader.GetInt32(reader.GetOrdinal("CategoriaId")),
+                IdiomaID = reader.GetInt32(reader.GetOrdinal("IdiomaId")),
+                AutorID = reader.GetInt32(reader.GetOrdinal("AutorId")),
+                Precio = reader["Precio"] == DBNull.Value ? "0.00" : Convert.ToDecimal(reader["Precio"]).ToString("F2"),
+                EsGratuito = reader["EsGratuito"] != DBNull.Value && Convert.ToBoolean(reader["EsGratuito"]) ? 1 : 0,
+                Sinopsis = reader["Descripcion"]?.ToString(),
+                Portada = reader["PortadaUrl"]?.ToString(),
                 Estado = reader["Estado"]?.ToString() ?? string.Empty
             };
         }

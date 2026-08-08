@@ -64,7 +64,7 @@ namespace BookMatch.Repositories.Implementations
             var usuario = await GetByIdAsync(usuarioId);
             if (usuario is null) return false;
 
-            usuario.EsEscritor = activar;
+            usuario.EsEscritor = activar ? 1 : 0;
             Update(usuario);
             return await SaveChangesAsync() > 0;
         }
@@ -79,7 +79,7 @@ namespace BookMatch.Repositories.Implementations
                 new SqlParameter("@UsuarioId", (object?)usuarioId ?? DBNull.Value),
                 new SqlParameter("@Nombre", (object?)datos?.Nombre ?? DBNull.Value),
                 new SqlParameter("@Email", (object?)datos?.Email ?? DBNull.Value),
-                new SqlParameter("@RolId", (object?)datos?.RolId ?? DBNull.Value),
+                new SqlParameter("@RolId", (object?)datos?.RolID ?? DBNull.Value),
                 new SqlParameter("@Estado", (object?)datos?.Estado ?? DBNull.Value),
             };
 

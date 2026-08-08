@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookMatchBD.Models
+namespace BookMatch.Models
 {
     [Table("DetalleOrdenes")]
     public class DetalleOrden

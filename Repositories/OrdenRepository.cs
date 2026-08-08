@@ -62,7 +62,7 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<IEnumerable<Orden>> GetHistorialByUsuarioAsync(int usuarioId)
             => await _dbSet
-                .Where(o => o.UsuarioId == usuarioId)
+                .Where(o => o.UsuarioID == usuarioId)
                 .Include(o => o.DetalleOrdenes)
                 .OrderByDescending(o => o.FechaOrden)
                 .AsNoTracking()
@@ -70,7 +70,7 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<IEnumerable<DetalleOrden>> GetDetalleByOrdenAsync(int ordenId)
             => await _context.Set<DetalleOrden>()
-                .Where(d => d.OrdenId == ordenId)
+                .Where(d => d.OrdenID == ordenId)
                 .Include(d => d.Libro)
                 .AsNoTracking()
                 .ToListAsync();

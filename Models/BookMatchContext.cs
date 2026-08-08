@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using BookMatch.Models;
 
-namespace BookMatchBD.Models
+namespace BookMatch.Data
 {
     public class BookMatchContext : DbContext
     {

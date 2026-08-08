@@ -11,7 +11,7 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<IEnumerable<Carrito>> GetByUsuarioAsync(int usuarioId)
             => await _dbSet
-                .Where(c => c.UsuarioId == usuarioId)
+                .Where(c => c.UsuarioID == usuarioId)
                 .Include(c => c.Libro)
                 .AsNoTracking()
                 .ToListAsync();
@@ -20,16 +20,16 @@ namespace BookMatch.Repositories.Implementations
         {
             // La tabla Carrito tiene constraint de unicidad usuario/libro (definida en el script SQL):
             // si ya existe, no se duplica.
-            var existe = await _dbSet.AnyAsync(c => c.UsuarioId == usuarioId && c.LibroId == libroId);
+            var existe = await _dbSet.AnyAsync(c => c.UsuarioID == usuarioId && c.LibroID == libroId);
             if (existe) return false;
 
-            await AddAsync(new Carrito { UsuarioId = usuarioId, LibroId = libroId, FechaAgregado = DateTime.Now });
+            await AddAsync(new Carrito { UsuarioID = usuarioId, LibroID = libroId, FechaAgregado = DateTime.Now });
             return await SaveChangesAsync() > 0;
         }
 
         public async Task<bool> QuitarAsync(int usuarioId, int libroId)
         {
-            var item = await _dbSet.FirstOrDefaultAsync(c => c.UsuarioId == usuarioId && c.LibroId == libroId);
+            var item = await _dbSet.FirstOrDefaultAsync(c => c.UsuarioID == usuarioId && c.LibroID == libroId);
             if (item is null) return false;
 
             Delete(item);
@@ -38,7 +38,7 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<bool> VaciarCarritoAsync(int usuarioId)
         {
-            var items = await _dbSet.Where(c => c.UsuarioId == usuarioId).ToListAsync();
+            var items = await _dbSet.Where(c => c.UsuarioID == usuarioId).ToListAsync();
             if (!items.Any()) return true;
 
             _dbSet.RemoveRange(items);

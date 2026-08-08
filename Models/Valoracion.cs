@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookMatchBD.Models
+namespace BookMatch.Models
 {
     [Table("Valoraciones")]
     public class Valoracion
