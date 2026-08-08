@@ -12,9 +12,6 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<(IEnumerable<Libro> Libros, int Total)> ObtenerCatalogoAsync(FiltroCatalogo filtro)
         {
-            // sp_ObtenerCatalogo recibe los 6 filtros + paginación y devuelve:
-            //  - result set con los libros de la página actual
-            //  - @Total como parámetro de salida con el total de registros (para el paginador)
             await using var connection = _context.Database.GetDbConnection();
             if (connection.State != System.Data.ConnectionState.Open)
                 await connection.OpenAsync();
@@ -62,8 +59,6 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<int> PublicarLibroAsync(Libro libro)
         {
-            // sp_PublicarLibro hace INSERT o UPDATE según si LibroId viene en 0/null,
-            // y devuelve el Id del libro publicado (nuevo o actualizado).
             await using var connection = _context.Database.GetDbConnection();
             if (connection.State != System.Data.ConnectionState.Open)
                 await connection.OpenAsync();
@@ -71,8 +66,6 @@ namespace BookMatch.Repositories.Implementations
             await using var command = connection.CreateCommand();
             command.CommandText = "sp_PublicarLibro";
             command.CommandType = System.Data.CommandType.StoredProcedure;
-
-            // Si LibroID > 0 enviamos el id, sino DBNull (nuevo registro)
             command.Parameters.Add(new SqlParameter("@LibroId", libro.LibroID > 0 ? (object)libro.LibroID : DBNull.Value));
             command.Parameters.Add(new SqlParameter("@Titulo", libro.Titulo));
             command.Parameters.Add(new SqlParameter("@CategoriaId", libro.CategoriaID));
@@ -102,11 +95,6 @@ namespace BookMatch.Repositories.Implementations
         public async Task<IEnumerable<Libro>> GetByCategoriaAsync(int categoriaId)
             => await _dbSet.Where(l => l.CategoriaID == categoriaId).AsNoTracking().ToListAsync();
 
-        /// <summary>
-        /// Mapea manualmente el SqlDataReader a la entidad Libro.
-        /// AJUSTAR nombres de columnas/propiedades cuando tu compañero termine Models
-        /// si difieren de lo que devuelve sp_ObtenerCatalogo en el script SQL.
-        /// </summary>
         private static Libro MapLibro(System.Data.Common.DbDataReader reader)
         {
             return new Libro

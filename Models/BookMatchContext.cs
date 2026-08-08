@@ -29,7 +29,7 @@ namespace BookMatch.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // este seria la Configuracion del índice único compuesto descrito en el script del SQL
+           
             modelBuilder.Entity<Valoracion>()
                 .HasIndex(v => new { v.LibroID, v.UsuarioID })
                 .IsUnique();

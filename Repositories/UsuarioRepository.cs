@@ -15,7 +15,7 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<Usuario?> LoginAsync(string email, string passwordHash)
         {
-            // sp_LoginUsuario valida email + hash y devuelve la fila del usuario (o vacío si falla)
+           
             var resultado = await _dbSet
                 .FromSqlInterpolated($"EXEC sp_LoginUsuario @Email = {email}, @PasswordHash = {passwordHash}")
                 .AsNoTracking()
@@ -26,8 +26,7 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<string?> GenerarTokenRecoveryAsync(string email)
         {
-            // Este SP devuelve un único valor escalar (el token), por eso usamos ADO.NET directo
-            // en vez de FromSqlInterpolated (que está pensado para result sets de entidades).
+            
             await using var connection = _context.Database.GetDbConnection();
             if (connection.State != System.Data.ConnectionState.Open)
                 await connection.OpenAsync();
@@ -71,8 +70,6 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<IEnumerable<Usuario>> GestionUsuarioAsync(string accion, int? usuarioId, Usuario? datos)
         {
-            // sp_GestionUsuario centraliza LISTAR / CREAR / EDITAR / ELIMINAR / TOGGLE_ESTADO
-            // según el parámetro @Accion, usado desde el módulo de Seguridad (solo Administrador).
             var parametros = new[]
             {
                 new SqlParameter("@Accion", accion),

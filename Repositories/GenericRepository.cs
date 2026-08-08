@@ -5,10 +5,6 @@ using BookMatch.Repositories.Interfaces;
 
 namespace BookMatch.Repositories.Implementations
 {
-    /// <summary>
-    /// Implementación base de CRUD sobre EF Core. Los repositorios específicos
-    /// heredan de esta clase y agregan los métodos propios (consultas por SP, joins, etc.)
-    /// </summary>
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly BookMatchContext _context;

@@ -2,9 +2,6 @@ using System.Linq.Expressions;
 
 namespace BookMatch.Repositories.Interfaces
 {
-    /// <summary>
-    /// Contrato base de CRUD que reutilizan todos los repositorios específicos.
-    /// </summary>
     public interface IGenericRepository<T> where T : class
     {
         Task<T?> GetByIdAsync(int id);

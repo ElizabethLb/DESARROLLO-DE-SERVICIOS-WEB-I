@@ -2,7 +2,6 @@ using BookMatch.Models;
 
 namespace BookMatch.Repositories.Interfaces
 {
-    /// <summary>Filtros del módulo Catálogo (género, precio, idioma, valoración, búsqueda).</summary>
     public class FiltroCatalogo
     {
         public string? Busqueda { get; set; }
@@ -16,15 +15,10 @@ namespace BookMatch.Repositories.Interfaces
 
     public interface ILibroRepository : IGenericRepository<Libro>
     {
-        /// <summary>Ejecuta sp_ObtenerCatalogo. Devuelve la página de libros y el total de resultados (para paginación).</summary>
+        
         Task<(IEnumerable<Libro> Libros, int Total)> ObtenerCatalogoAsync(FiltroCatalogo filtro);
-
-        /// <summary>Ejecuta sp_DetalleLibro (incluye valoración promedio, autor, categoría).</summary>
         Task<Libro?> ObtenerDetalleAsync(int libroId);
-
-        /// <summary>Ejecuta sp_PublicarLibro (alta o edición desde Mis Publicaciones).</summary>
         Task<int> PublicarLibroAsync(Libro libro);
-
         Task<IEnumerable<Libro>> GetByAutorAsync(int usuarioId);
         Task<IEnumerable<Libro>> GetByCategoriaAsync(int categoriaId);
     }

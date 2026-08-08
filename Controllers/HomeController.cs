@@ -21,11 +21,10 @@ namespace BookMatch.Controllers
                 return View(model);
             }
 
-            // TODO: aquí va tu lógica real de validación
-            // (buscar el Usuario en la base de datos, verificar contraseña, etc.)
+    
             if (model.Email == "admin@bookmatch.com" && model.Password == "password123")
             {
-                // login exitoso -> redirige al dashboard
+                
                 return RedirectToAction("Dashboard");
             }
 

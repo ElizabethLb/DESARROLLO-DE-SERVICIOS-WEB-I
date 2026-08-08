@@ -18,8 +18,7 @@ namespace BookMatch.Repositories.Implementations
 
         public async Task<bool> AgregarAsync(int usuarioId, int libroId)
         {
-            // La tabla Carrito tiene constraint de unicidad usuario/libro (definida en el script SQL):
-            // si ya existe, no se duplica.
+            
             var existe = await _dbSet.AnyAsync(c => c.UsuarioID == usuarioId && c.LibroID == libroId);
             if (existe) return false;
 

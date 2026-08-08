@@ -9,7 +9,6 @@ namespace BookMatch.Data
         {
         }
 
-        // Add DbSet<T> properties here, for example:
-        // public DbSet<User> Users { get; set; }
+    
     }
 }

@@ -15,9 +15,6 @@ namespace BookMatch.Repositories.Implementations
             if (libroIds is null || !libroIds.Any())
                 return 0;
 
-            // sp_ConfirmarCompra recibe la lista de libros como string separado por comas
-            // (STRING_SPLIT del lado del SP). Alternativa más robusta: Table-Valued Parameter,
-            // pero esto mantiene el SP simple si no lo definieron con TVP.
             var libroIdsCsv = string.Join(",", libroIds);
 
             await using var connection = _context.Database.GetDbConnection();
@@ -49,8 +46,6 @@ namespace BookMatch.Repositories.Implementations
             }
             catch (SqlException)
             {
-                // El SP ya maneja ROLLBACK internamente ante error; si aun así explota
-                // (ej. timeout, conexión), devolvemos 0 para que el Service lo trate como fallo.
                 return 0;
             }
 
