@@ -1,0 +1,578 @@
+@model BookMatch.Models.CatalogoViewModel
+@{
+    Layout = null;
+    var f = Model.Filtro;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Catálogo - BookMatch</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        :root {
+            --purple-1: #3a0ca3;
+            --purple-2: #6a4cff;
+            --accent: #8a2be2;
+            --muted: #7b6f9b;
+            --bg: #f6f4fd;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: var(--bg);
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            color: #2c2a3a;
+        }
+
+        a { text-decoration: none; }
+
+        /* --- Header --- */
+        .topbar {
+            background: linear-gradient(135deg,var(--purple-1) 0%, #5b2be6 50%, var(--purple-2) 100%);
+            padding: 18px 0;
+        }
+
+        .topbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .topbar .brand .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: #ff9f1c;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .topbar .nav-links a {
+            color: rgba(255,255,255,0.85);
+            font-weight: 600;
+            margin-left: 26px;
+            font-size: 15px;
+        }
+
+        .topbar .nav-links a.active,
+        .topbar .nav-links a:hover {
+            color: #ffd166;
+        }
+
+        /* --- Hero / search --- */
+        .catalog-hero {
+            background: linear-gradient(135deg,var(--purple-1) 0%, #5b2be6 50%, var(--purple-2) 100%);
+            padding: 34px 0 70px;
+            color: #fff;
+        }
+
+        .catalog-hero h1 {
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .catalog-hero p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 22px;
+        }
+
+        .search-bar {
+            background: #fff;
+            border-radius: 14px;
+            padding: 8px;
+            box-shadow: 0 12px 30px rgba(30,10,80,0.25);
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-bar input[type="text"] {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 10px 14px;
+            font-size: 15px;
+            border-radius: 10px;
+        }
+
+        .search-bar button {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(90deg,var(--purple-2),var(--accent));
+        }
+
+        /* --- Layout --- */
+        .catalog-body {
+            margin-top: -46px;
+            padding-bottom: 60px;
+        }
+
+        /* --- Filters sidebar --- */
+        .filters-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 8px 24px rgba(30,10,80,0.08);
+            position: sticky;
+            top: 20px;
+        }
+
+        .filters-card h5 {
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #2c2a3a;
+        }
+
+        .filters-card label {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 6px;
+            display: block;
+            margin-top: 16px;
+        }
+
+        .filters-card label:first-of-type { margin-top: 0; }
+
+        .filters-card select,
+        .filters-card .form-select {
+            border-radius: 10px;
+            border: 1px solid #e6e1f5;
+            padding: 9px 12px;
+        }
+
+        .btn-filtrar {
+            width: 100%;
+            margin-top: 22px;
+            border: 0;
+            border-radius: 10px;
+            padding: 11px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(90deg,var(--purple-2),var(--accent));
+        }
+
+        .btn-limpiar {
+            width: 100%;
+            margin-top: 10px;
+            border: 1px solid #e6e1f5;
+            border-radius: 10px;
+            padding: 10px;
+            font-weight: 600;
+            color: var(--muted);
+            background: #fff;
+        }
+
+        /* --- Results header --- */
+        .results-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .results-header .count {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* --- Book card --- */
+        .book-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(30,10,80,0.07);
+            transition: transform .15s ease, box-shadow .15s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(30,10,80,0.16);
+        }
+
+        .book-cover {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(135deg, var(--purple-2), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            text-align: center;
+            padding: 14px;
+            position: relative;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge-gratis, .badge-precio {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .badge-gratis {
+            background: #2ec4b6;
+            color: #fff;
+        }
+
+        .badge-precio {
+            background: rgba(255,255,255,0.92);
+            color: var(--purple-1);
+        }
+
+        .book-info {
+            padding: 14px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .book-categoria {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .book-titulo {
+            font-weight: 700;
+            font-size: 15.5px;
+            color: #2c2a3a;
+            line-height: 1.3;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .book-autor {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .book-rating {
+            font-size: 13px;
+            color: #ff9f1c;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .book-rating .sin-valoraciones {
+            color: #bbb;
+            font-weight: 500;
+        }
+
+        .book-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-detalle {
+            border: 1px solid #e6e1f5;
+            border-radius: 10px;
+            padding: 7px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--purple-1);
+            background: #f6f4fd;
+        }
+
+        .btn-detalle:hover {
+            background: var(--purple-1);
+            color: #fff;
+        }
+
+        /* --- Empty state --- */
+        .empty-state {
+            background: #fff;
+            border-radius: 16px;
+            padding: 60px 24px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(30,10,80,0.07);
+        }
+
+        .empty-state .icon {
+            font-size: 40px;
+            margin-bottom: 14px;
+        }
+
+        .empty-state h4 { font-weight: 700; }
+
+        .empty-state p { color: var(--muted); }
+
+        /* --- Pagination --- */
+        .catalog-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 34px;
+            flex-wrap: wrap;
+        }
+
+        .catalog-pagination a,
+        .catalog-pagination span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--purple-1);
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(30,10,80,0.07);
+            padding: 0 10px;
+        }
+
+        .catalog-pagination a:hover {
+            background: #efeaff;
+        }
+
+        .catalog-pagination .active {
+            background: linear-gradient(90deg,var(--purple-2),var(--accent));
+            color: #fff;
+        }
+
+        .catalog-pagination .disabled {
+            opacity: .4;
+            pointer-events: none;
+        }
+
+        @@media (max-width: 991px) {
+            .filters-card {
+                position: static;
+                margin-bottom: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <span class="logo">★</span> BookMatch
+            </a>
+            <div class="nav-links">
+                <a class="active" asp-controller="Libro" asp-action="Catalogo">Catálogo</a>
+                <a href="#">Mi biblioteca</a>
+                <a asp-controller="Home" asp-action="Index">Iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="catalog-hero">
+        <div class="container">
+            <h1>Explora el catálogo</h1>
+            <p>Encuentra tu próxima lectura entre cientos de títulos de nuestra comunidad de autores.</p>
+
+            <form asp-controller="Libro" asp-action="Catalogo" method="get">
+                <input type="hidden" name="TamanioPagina" value="@f.TamanioPagina" />
+                @if (f.CategoriaId.HasValue) { <input type="hidden" name="CategoriaId" value="@f.CategoriaId" /> }
+                @if (f.IdiomaId.HasValue) { <input type="hidden" name="IdiomaId" value="@f.IdiomaId" /> }
+                @if (f.SoloGratis.HasValue) { <input type="hidden" name="SoloGratis" value="@f.SoloGratis.Value.ToString().ToLower()" /> }
+                @if (f.ValoracionMinima.HasValue) { <input type="hidden" name="ValoracionMinima" value="@f.ValoracionMinima" /> }
+                <div class="search-bar">
+                    <input type="text" name="Busqueda" value="@f.Busqueda" placeholder="Buscar por título, autor o código..." />
+                    <button type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container catalog-body">
+        <div class="row">
+
+            <!-- Filtros -->
+            <div class="col-lg-3 mb-4">
+                <form asp-controller="Libro" asp-action="Catalogo" method="get" class="filters-card">
+                    <h5>Filtrar resultados</h5>
+                    <input type="hidden" name="Busqueda" value="@f.Busqueda" />
+
+                    <label for="CategoriaId">Categoría</label>
+                    <select class="form-select" id="CategoriaId" name="CategoriaId">
+                        <option value="">Todas las categorías</option>
+                        @foreach (var cat in Model.Categorias)
+                        {
+                            <option value="@cat.CategoriaID" selected="@(f.CategoriaId == cat.CategoriaID)">@cat.Nombre</option>
+                        }
+                    </select>
+
+                    <label for="IdiomaId">Idioma</label>
+                    <select class="form-select" id="IdiomaId" name="IdiomaId">
+                        <option value="">Todos los idiomas</option>
+                        @foreach (var idioma in Model.Idiomas)
+                        {
+                            <option value="@idioma.IdiomaID" selected="@(f.IdiomaId == idioma.IdiomaID)">@idioma.Nombre</option>
+                        }
+                    </select>
+
+                    <label for="SoloGratis">Precio</label>
+                    <select class="form-select" id="SoloGratis" name="SoloGratis">
+                        <option value="" selected="@(f.SoloGratis == null)">Todos</option>
+                        <option value="true" selected="@(f.SoloGratis == true)">Solo gratuitos</option>
+                        <option value="false" selected="@(f.SoloGratis == false)">Solo de pago</option>
+                    </select>
+
+                    <label for="ValoracionMinima">Valoración mínima</label>
+                    <select class="form-select" id="ValoracionMinima" name="ValoracionMinima">
+                        <option value="" selected="@(f.ValoracionMinima == null)">Cualquiera</option>
+                        <option value="4" selected="@(f.ValoracionMinima == 4)">★ 4 y más</option>
+                        <option value="3" selected="@(f.ValoracionMinima == 3)">★ 3 y más</option>
+                        <option value="2" selected="@(f.ValoracionMinima == 2)">★ 2 y más</option>
+                    </select>
+
+                    <button type="submit" class="btn-filtrar">Aplicar filtros</button>
+                    <a href="@Url.Action("Catalogo", "Libro")" class="btn-limpiar text-center d-block">Limpiar filtros</a>
+                </form>
+            </div>
+
+            <!-- Resultados -->
+            <div class="col-lg-9">
+                <div class="results-header">
+                    <div class="count">
+                        @if (Model.Total > 0)
+                        {
+                            <text>@Model.Total libro@(Model.Total == 1 ? "" : "s") encontrado@(Model.Total == 1 ? "" : "s")</text>
+                        }
+                        else
+                        {
+                            <text>Sin resultados</text>
+                        }
+                    </div>
+                </div>
+
+                @if (Model.Libros.Any())
+                {
+                    <div class="row g-4">
+                        @foreach (var libro in Model.Libros)
+                        {
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="book-card">
+                                    <div class="book-cover">
+                                        @if (!string.IsNullOrWhiteSpace(libro.Portada))
+                                        {
+                                            <img src="@libro.Portada" alt="Portada de @libro.Titulo" onerror="this.style.display='none'" />
+                                        }
+                                        else
+                                        {
+                                            <span>@libro.Titulo</span>
+                                        }
+
+                                        @if (libro.EsGratuito)
+                                        {
+                                            <span class="badge-gratis">Gratis</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge-precio">S/ @libro.Precio</span>
+                                        }
+                                    </div>
+                                    <div class="book-info">
+                                        <div class="book-categoria">@libro.CategoriaNombre</div>
+                                        <div class="book-titulo" title="@libro.Titulo">@libro.Titulo</div>
+                                        <div class="book-autor">@libro.AutorNombre &middot; @libro.IdiomaNombre</div>
+                                        <div class="book-rating">
+                                            @if (libro.TotalValoraciones > 0)
+                                            {
+                                                <text>★ @libro.ValoracionPromedio.ToString("0.0") <span style="color:#bbb;font-weight:500">(@libro.TotalValoraciones)</span></text>
+                                            }
+                                            else
+                                            {
+                                                <span class="sin-valoraciones">Sin valoraciones aún</span>
+                                            }
+                                        </div>
+                                        <div class="book-footer">
+                                            <span></span>
+                                            <a class="btn-detalle" asp-controller="Libro" asp-action="Detalle" asp-route-id="@libro.LibroID">Ver detalle →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    @if (Model.TotalPaginas > 1)
+                    {
+                        <div class="catalog-pagination">
+                            @{
+                                var paginaActual = f.Pagina;
+                                string LinkPagina(int p) =>
+                                    Url.Action("Catalogo", "Libro", new
+                                    {
+                                        Busqueda = f.Busqueda,
+                                        CategoriaId = f.CategoriaId,
+                                        IdiomaId = f.IdiomaId,
+                                        SoloGratis = f.SoloGratis,
+                                        ValoracionMinima = f.ValoracionMinima,
+                                        Pagina = p,
+                                        TamanioPagina = f.TamanioPagina
+                                    }) ?? "#";
+                            }
+
+                            <a class="@(paginaActual <= 1 ? "disabled" : "")" href="@LinkPagina(paginaActual - 1)">‹</a>
+
+                            @for (var p = 1; p <= Model.TotalPaginas; p++)
+                            {
+                                if (p == paginaActual)
+                                {
+                                    <span class="active">@p</span>
+                                }
+                                else
+                                {
+                                    <a href="@LinkPagina(p)">@p</a>
+                                }
+                            }
+
+                            <a class="@(paginaActual >= Model.TotalPaginas ? "disabled" : "")" href="@LinkPagina(paginaActual + 1)">›</a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="empty-state">
+                        <div class="icon">📚</div>
+                        <h4>No encontramos libros con esos filtros</h4>
+                        <p>Prueba ajustando la búsqueda o quitando algunos filtros.</p>
+                        <a href="@Url.Action("Catalogo", "Libro")" class="btn-limpiar" style="display:inline-block;width:auto;padding:10px 24px;">Ver todo el catálogo</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
