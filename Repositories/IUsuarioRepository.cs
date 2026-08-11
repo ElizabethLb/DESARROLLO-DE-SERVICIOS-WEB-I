@@ -6,14 +6,38 @@ namespace BookMatch.Repositories.Interfaces
     {
         Task<Usuario?> GetByEmailAsync(string email);
 
-        Task<Usuario?> LoginAsync(string email, string passwordHash);
+        Task<Usuario?> LoginAsync(
+            string email,
+            string passwordHash);
 
-        Task<string?> GenerarTokenRecoveryAsync(string email);
+        Task<string?> GenerarTokenRecoveryAsync(
+            string email);
 
-        Task<bool> RestablecerPasswordAsync(string token, string nuevoPasswordHash);
+        Task<bool> RestablecerPasswordAsync(
+            string token,
+            string nuevoPasswordHash);
 
-        Task<bool> ActivarPerfilEscritorAsync(int usuarioId, bool activar);
+        Task<bool> ActivarPerfilEscritorAsync(
+            int usuarioId,
+            bool activar);
 
-        Task<IEnumerable<Usuario>> GestionUsuarioAsync(string accion, int? usuarioId, Usuario? datos);
+        // ==========================================
+        // SEGURIDAD - ADMINISTRADOR
+        // ==========================================
+
+        Task<IEnumerable<Usuario>> ListarUsuariosAsync();
+
+        Task<IEnumerable<Usuario>> BuscarUsuariosAsync(
+            string texto);
+
+        Task<bool> RegistrarUsuarioAsync(
+            Usuario usuario);
+
+        Task<bool> ActualizarUsuarioAsync(
+            Usuario usuario);
+
+        Task<bool> CambiarEstadoUsuarioAsync(
+            int usuarioId,
+            string estado);
     }
 }

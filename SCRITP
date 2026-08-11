@@ -1,0 +1,760 @@
+CREATE DATABASE BookMatchBD;
+
+USE BookMatchBD;
+
+
+-- ============================================================
+-- 2. TABLAS (SIMPLIFICADO: solo INT, VARCHAR, DATE)
+-- ============================================================
+
+-- ----------------------------------------------------------
+-- 2.1 ROLES
+-- ----------------------------------------------------------
+CREATE TABLE Roles (
+    RolID         INT           IDENTITY(1,1) PRIMARY KEY,
+    Nombre        VARCHAR(50)   NOT NULL UNIQUE,          -- 'Administrador', 'Usuario'
+    Descripcion   VARCHAR(200)  NULL,
+    Activo        INT           NOT NULL DEFAULT 1,       -- 1 = activo, 0 = inactivo
+    FechaCreacion DATE          NOT NULL DEFAULT GETDATE()
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.2 USUARIOS
+-- ----------------------------------------------------------
+CREATE TABLE Usuarios (
+    UsuarioID     INT           IDENTITY(1,1) PRIMARY KEY,
+    Nombre        VARCHAR(120)  NOT NULL,
+    Apellido      VARCHAR(120)  NOT NULL,
+    Email         VARCHAR(200)  NOT NULL UNIQUE,
+    PasswordHash  VARCHAR(256)  NOT NULL,
+    RolID         INT           NOT NULL,
+    EsEscritor    INT           NOT NULL DEFAULT 0,       -- 1 = escritor, 0 = solo lector
+    Biografia     VARCHAR(MAX)  NULL,
+    FotoPerfil    VARCHAR(500)  NULL,
+    Estado        VARCHAR(20)   NOT NULL DEFAULT 'Activo', -- Activo | Inactivo | Suspendido
+    FechaRegistro DATE          NOT NULL DEFAULT GETDATE(),
+    UltimoAcceso  DATE          NULL,
+    TokenRecovery VARCHAR(256)  NULL,
+    TokenExpira   DATE          NULL,
+    CONSTRAINT FK_Usuarios_Roles FOREIGN KEY (RolID) REFERENCES Roles(RolID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.3 CATEGORÍAS / GÉNEROS
+-- ----------------------------------------------------------
+CREATE TABLE Categorias (
+    CategoriaID  INT           IDENTITY(1,1) PRIMARY KEY,
+    Nombre       VARCHAR(100)  NOT NULL UNIQUE,
+    Descripcion  VARCHAR(300)  NULL,
+    Icono        VARCHAR(100)  NULL,
+    Activo       INT           NOT NULL DEFAULT 1
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.4 IDIOMAS
+-- ----------------------------------------------------------
+CREATE TABLE Idiomas (
+    IdiomaID  INT          IDENTITY(1,1) PRIMARY KEY,
+    Nombre    VARCHAR(60)  NOT NULL UNIQUE,
+    Codigo    VARCHAR(5)   NOT NULL UNIQUE               -- es, en, pt, fr…
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.5 LIBROS
+-- ----------------------------------------------------------
+CREATE TABLE Libros (
+    LibroID            INT           IDENTITY(1,1) PRIMARY KEY,
+    Codigo             VARCHAR(20)   NULL,                -- se genera en el backend, ya no es calculada
+    Titulo             VARCHAR(300)  NOT NULL,
+    AutorID            INT           NOT NULL,
+    CategoriaID        INT           NOT NULL,
+    IdiomaID           INT           NOT NULL,
+    Sinopsis           VARCHAR(MAX)  NULL,
+    Precio             VARCHAR(10)   NOT NULL DEFAULT '0.00',  -- ej: "12.99"
+    EsGratuito         INT           NOT NULL DEFAULT 0,       -- 1 = gratis, 0 = de pago
+    Paginas            INT           NULL,
+    Portada            VARCHAR(500)  NULL,
+    ArchivoURL         VARCHAR(500)  NULL,
+    Estado             VARCHAR(20)   NOT NULL DEFAULT 'Borrador', -- Borrador | EnRevision | Publicado | Archivado
+    FechaPublicacion   DATE          NULL,
+    FechaCreacion      DATE          NOT NULL DEFAULT GETDATE(),
+    FechaActualizacion DATE          NULL,
+    TotalVentas        INT           NOT NULL DEFAULT 0,
+    TotalDescargas      INT          NOT NULL DEFAULT 0,
+    CONSTRAINT FK_Libros_Autor     FOREIGN KEY (AutorID)     REFERENCES Usuarios(UsuarioID),
+    CONSTRAINT FK_Libros_Categoria FOREIGN KEY (CategoriaID) REFERENCES Categorias(CategoriaID),
+    CONSTRAINT FK_Libros_Idioma    FOREIGN KEY (IdiomaID)    REFERENCES Idiomas(IdiomaID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.6 VALORACIONES / RESEÑAS
+-- ----------------------------------------------------------
+CREATE TABLE Valoraciones (
+    ValoracionID    INT           IDENTITY(1,1) PRIMARY KEY,
+    LibroID         INT           NOT NULL,
+    UsuarioID       INT           NOT NULL,
+    Puntuacion      INT           NOT NULL,               -- 1 a 5
+    Comentario      VARCHAR(MAX)  NULL,
+    FechaValoracion DATE          NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_Val_Libro   FOREIGN KEY (LibroID)   REFERENCES Libros(LibroID),
+    CONSTRAINT FK_Val_Usuario FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
+    CONSTRAINT UQ_Val_LibroUsuario UNIQUE (LibroID, UsuarioID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.7 CUESTIONARIO – PREGUNTAS
+-- ----------------------------------------------------------
+CREATE TABLE Preguntas (
+    PreguntaID    INT           IDENTITY(1,1) PRIMARY KEY,
+    Orden         INT           NOT NULL,
+    Texto         VARCHAR(300)  NOT NULL,
+    TipoRespuesta VARCHAR(20)   NOT NULL DEFAULT 'simple', -- simple | multiple
+    Activa        INT           NOT NULL DEFAULT 1
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.8 CUESTIONARIO – OPCIONES DE RESPUESTA
+-- ----------------------------------------------------------
+CREATE TABLE OpcionesRespuesta (
+    OpcionID    INT           IDENTITY(1,1) PRIMARY KEY,
+    PreguntaID  INT           NOT NULL,
+    Texto       VARCHAR(200)  NOT NULL,
+    CONSTRAINT FK_Opciones_Pregunta FOREIGN KEY (PreguntaID) REFERENCES Preguntas(PreguntaID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.9 RESPUESTAS DEL CUESTIONARIO POR USUARIO
+-- ----------------------------------------------------------
+CREATE TABLE RespuestasUsuario (
+    RespuestaID    INT   IDENTITY(1,1) PRIMARY KEY,
+    UsuarioID      INT   NOT NULL,
+    PreguntaID     INT   NOT NULL,
+    OpcionID       INT   NOT NULL,
+    FechaRespuesta DATE  NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_Resp_Usuario  FOREIGN KEY (UsuarioID)  REFERENCES Usuarios(UsuarioID),
+    CONSTRAINT FK_Resp_Pregunta FOREIGN KEY (PreguntaID) REFERENCES Preguntas(PreguntaID),
+    CONSTRAINT FK_Resp_Opcion   FOREIGN KEY (OpcionID)   REFERENCES OpcionesRespuesta(OpcionID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.10 CARRITO DE COMPRAS
+-- ----------------------------------------------------------
+CREATE TABLE Carrito (
+    CarritoID     INT   IDENTITY(1,1) PRIMARY KEY,
+    UsuarioID     INT   NOT NULL,
+    LibroID       INT   NOT NULL,
+    FechaAgregado DATE  NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_Carrito_Usuario FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
+    CONSTRAINT FK_Carrito_Libro   FOREIGN KEY (LibroID)   REFERENCES Libros(LibroID),
+    CONSTRAINT UQ_Carrito         UNIQUE (UsuarioID, LibroID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.11 ÓRDENES / TRANSACCIONES
+-- ----------------------------------------------------------
+CREATE TABLE Ordenes (
+    OrdenID     INT          IDENTITY(1,1) PRIMARY KEY,
+    Codigo      VARCHAR(20)  NULL,                        -- se genera en el backend
+    UsuarioID   INT          NOT NULL,
+    FechaOrden  DATE         NOT NULL DEFAULT GETDATE(),
+    Subtotal    VARCHAR(10)  NOT NULL,                     -- ej: "22.98"
+    Impuesto    VARCHAR(10)  NOT NULL DEFAULT '0.00',
+    Total       VARCHAR(10)  NOT NULL,
+    MetodoPago  VARCHAR(50)  NOT NULL DEFAULT 'Tarjeta',
+    EstadoPago  VARCHAR(20)  NOT NULL DEFAULT 'Completado', -- Pendiente | Completado | Cancelado | Reembolsado
+    CONSTRAINT FK_Ordenes_Usuario FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.12 DETALLE DE ÓRDENES
+-- ----------------------------------------------------------
+CREATE TABLE DetalleOrdenes (
+    DetalleID  INT          IDENTITY(1,1) PRIMARY KEY,
+    OrdenID    INT          NOT NULL,
+    LibroID    INT          NOT NULL,
+    Precio     VARCHAR(10)  NOT NULL,
+    EsGratuito INT          NOT NULL DEFAULT 0,
+    CONSTRAINT FK_Detalle_Orden FOREIGN KEY (OrdenID) REFERENCES Ordenes(OrdenID),
+    CONSTRAINT FK_Detalle_Libro FOREIGN KEY (LibroID) REFERENCES Libros(LibroID),
+    CONSTRAINT UQ_Detalle       UNIQUE (OrdenID, LibroID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.13 BIBLIOTECA PERSONAL (libros adquiridos/descargados)
+-- ----------------------------------------------------------
+CREATE TABLE BibliotecaPersonal (
+    BibliotecaID       INT   IDENTITY(1,1) PRIMARY KEY,
+    UsuarioID          INT   NOT NULL,
+    LibroID            INT   NOT NULL,
+    OrdenID            INT   NULL,                        -- NULL si fue gratuito directo
+    FechaAdquisicion   DATE  NOT NULL DEFAULT GETDATE(),
+    EstadoLectura      VARCHAR(20) NOT NULL DEFAULT 'Pendiente', -- Pendiente | EnProgreso | Leido
+    PaginaActual       INT   NOT NULL DEFAULT 0,
+    FechaUltimaLectura DATE  NULL,
+    CONSTRAINT FK_BP_Usuario FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
+    CONSTRAINT FK_BP_Libro   FOREIGN KEY (LibroID)   REFERENCES Libros(LibroID),
+    CONSTRAINT FK_BP_Orden   FOREIGN KEY (OrdenID)   REFERENCES Ordenes(OrdenID),
+    CONSTRAINT UQ_BP         UNIQUE (UsuarioID, LibroID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.14 SESIONES (auditoría de accesos)
+-- ----------------------------------------------------------
+CREATE TABLE Sesiones (
+    SesionID    INT           IDENTITY(1,1) PRIMARY KEY,
+    UsuarioID   INT           NOT NULL,
+    Token       VARCHAR(512)  NOT NULL,
+    IP          VARCHAR(45)   NULL,
+    Dispositivo VARCHAR(200)  NULL,
+    FechaInicio DATE          NOT NULL DEFAULT GETDATE(),
+    FechaExpira DATE          NOT NULL,
+    Activa      INT           NOT NULL DEFAULT 1,
+    CONSTRAINT FK_Sesiones_Usuario FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID)
+);
+GO
+
+-- ----------------------------------------------------------
+-- 2.15 LOG DE AUDITORÍA
+-- ----------------------------------------------------------
+CREATE TABLE AuditoriaLog (
+    LogID       INT           IDENTITY(1,1) PRIMARY KEY,
+    UsuarioID   INT           NULL,
+    Accion      VARCHAR(100)  NOT NULL,
+    Tabla       VARCHAR(100)  NULL,
+    RegistroID  INT           NULL,
+    Descripcion VARCHAR(MAX)  NULL,
+    IP          VARCHAR(45)   NULL,
+    Fecha       DATE          NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_Log_Usuario FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID)
+);
+GO
+
+---------------------------------
+--Seguriad_ListarUsurios
+---------------------------------
+CREATE OR ALTER PROCEDURE sp_Usuarios_Listar
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        u.UsuarioID,
+        CONCAT(u.Nombre, ' ', u.Apellido) AS Usuario,
+        u.Nombre,
+        u.Apellido,
+        u.Email,
+        r.RolID,
+        r.Nombre AS Rol,
+        COUNT(l.LibroID) AS LibrosPublicados,
+        u.FechaRegistro,
+        u.UltimoAcceso,
+        u.Estado,
+        u.EsEscritor
+    FROM Usuarios u
+
+    INNER JOIN Roles r
+        ON u.RolID = r.RolID
+
+    LEFT JOIN Libros l
+        ON u.UsuarioID = l.AutorID
+        AND l.Estado = 'Publicado'
+
+    GROUP BY
+        u.UsuarioID,
+        u.Nombre,
+        u.Apellido,
+        u.Email,
+        r.RolID,
+        r.Nombre,
+        u.FechaRegistro,
+        u.UltimoAcceso,
+        u.Estado,
+        u.EsEscritor
+
+    ORDER BY u.UsuarioID DESC;
+END;
+GO
+
+------------------------------------
+--Seguridad_BuscarUsurio
+------------------------------------
+CREATE OR ALTER PROCEDURE sp_Usuarios_Buscar
+    @Texto VARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        u.UsuarioID,
+        CONCAT(u.Nombre, ' ', u.Apellido) AS Usuario,
+        u.Nombre,
+        u.Apellido,
+        u.Email,
+        r.RolID,
+        r.Nombre AS Rol,
+        COUNT(l.LibroID) AS LibrosPublicados,
+        u.FechaRegistro,
+        u.UltimoAcceso,
+        u.Estado,
+        u.EsEscritor
+    FROM Usuarios u
+
+    INNER JOIN Roles r
+        ON u.RolID = r.RolID
+
+    LEFT JOIN Libros l
+        ON u.UsuarioID = l.AutorID
+        AND l.Estado = 'Publicado'
+
+    WHERE
+        u.Nombre LIKE '%' + @Texto + '%'
+        OR u.Apellido LIKE '%' + @Texto + '%'
+        OR u.Email LIKE '%' + @Texto + '%'
+        OR r.Nombre LIKE '%' + @Texto + '%'
+
+    GROUP BY
+        u.UsuarioID,
+        u.Nombre,
+        u.Apellido,
+        u.Email,
+        r.RolID,
+        r.Nombre,
+        u.FechaRegistro,
+        u.UltimoAcceso,
+        u.Estado,
+        u.EsEscritor
+
+    ORDER BY u.UsuarioID DESC;
+END;
+GO
+
+---------------------------------
+--Seguridad_RegistrarUsurios
+---------------------------------
+CREATE OR ALTER PROCEDURE sp_Usuarios_Buscar
+    @Texto VARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        u.UsuarioID,
+        CONCAT(u.Nombre, ' ', u.Apellido) AS Usuario,
+        u.Nombre,
+        u.Apellido,
+        u.Email,
+        r.RolID,
+        r.Nombre AS Rol,
+        COUNT(l.LibroID) AS LibrosPublicados,
+        u.FechaRegistro,
+        u.UltimoAcceso,
+        u.Estado,
+        u.EsEscritor
+    FROM Usuarios u
+
+    INNER JOIN Roles r
+        ON u.RolID = r.RolID
+
+    LEFT JOIN Libros l
+        ON u.UsuarioID = l.AutorID
+        AND l.Estado = 'Publicado'
+
+    WHERE
+        u.Nombre LIKE '%' + @Texto + '%'
+        OR u.Apellido LIKE '%' + @Texto + '%'
+        OR u.Email LIKE '%' + @Texto + '%'
+        OR r.Nombre LIKE '%' + @Texto + '%'
+
+    GROUP BY
+        u.UsuarioID,
+        u.Nombre,
+        u.Apellido,
+        u.Email,
+        r.RolID,
+        r.Nombre,
+        u.FechaRegistro,
+        u.UltimoAcceso,
+        u.Estado,
+        u.EsEscritor
+
+    ORDER BY u.UsuarioID DESC;
+END;
+GO
+
+--------------------------------------
+--Actualizar_Usurio
+--------------------------------------
+USE BookMatchBD;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Usuarios_Actualizar
+    @UsuarioID INT,
+    @Nombre VARCHAR(120),
+    @Apellido VARCHAR(120),
+    @Email VARCHAR(200),
+    @RolID INT,
+    @EsEscritor INT,
+    @Biografia VARCHAR(MAX) = NULL,
+    @FotoPerfil VARCHAR(500) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 1. Verificar que el usuario exista
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Usuarios
+        WHERE UsuarioID = @UsuarioID
+    )
+    BEGIN
+        RAISERROR('El usuario no existe.', 16, 1);
+        RETURN;
+    END;
+
+    -- 2. Verificar que el correo no pertenezca a otro usuario
+    IF EXISTS (
+        SELECT 1
+        FROM Usuarios
+        WHERE Email = @Email
+          AND UsuarioID <> @UsuarioID
+    )
+    BEGIN
+        RAISERROR('El correo electrónico ya pertenece a otro usuario.', 16, 1);
+        RETURN;
+    END;
+
+    -- 3. Verificar que el rol exista y esté activo
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Roles
+        WHERE RolID = @RolID
+          AND Activo = 1
+    )
+    BEGIN
+        RAISERROR('El rol seleccionado no existe o está inactivo.', 16, 1);
+        RETURN;
+    END;
+
+    -- 4. Actualizar usuario
+    UPDATE Usuarios
+    SET
+        Nombre = @Nombre,
+        Apellido = @Apellido,
+        Email = @Email,
+        RolID = @RolID,
+        EsEscritor = @EsEscritor,
+        Biografia = @Biografia,
+        FotoPerfil = @FotoPerfil
+    WHERE UsuarioID = @UsuarioID;
+
+    -- 5. Confirmación
+    SELECT
+        @UsuarioID AS UsuarioID,
+        'Usuario actualizado correctamente.' AS Mensaje;
+END;
+GO
+
+--------------------------------------------------------------
+--Seguridad Activar o desactivar usurio
+--------------------------------------------------------------
+CREATE OR ALTER PROCEDURE sp_Usuarios_CambiarEstado
+    @UsuarioID INT,
+    @Estado VARCHAR(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar que el usuario exista
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Usuarios
+        WHERE UsuarioID = @UsuarioID
+    )
+    BEGIN
+        RAISERROR('El usuario no existe.', 16, 1);
+        RETURN;
+    END;
+
+    -- Validar estado
+    IF @Estado NOT IN ('Activo', 'Inactivo', 'Suspendido')
+    BEGIN
+        RAISERROR('El estado ingresado no es válido.', 16, 1);
+        RETURN;
+    END;
+
+    -- Actualizar estado
+    UPDATE Usuarios
+    SET Estado = @Estado
+    WHERE UsuarioID = @UsuarioID;
+
+    -- Confirmación
+    SELECT
+        @UsuarioID AS UsuarioID,
+        @Estado AS Estado,
+        'Estado del usuario actualizado correctamente.' AS Mensaje;
+END;
+GO
+
+------------------------------------------
+--Suridad listar roles
+------------------------------------------
+CREATE OR ALTER PROCEDURE sp_Roles_Listar
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        r.RolID,
+        r.Nombre,
+        r.Descripcion,
+        r.Activo,
+        r.FechaCreacion,
+        COUNT(u.UsuarioID) AS CantidadUsuarios
+    FROM Roles r
+
+    LEFT JOIN Usuarios u
+        ON r.RolID = u.RolID
+
+    GROUP BY
+        r.RolID,
+        r.Nombre,
+        r.Descripcion,
+        r.Activo,
+        r.FechaCreacion
+
+    ORDER BY r.RolID;
+END;
+GO
+
+-----------------------------------------------------
+--Seguridad registrar roles
+-----------------------------------------------------
+CREATE OR ALTER PROCEDURE sp_Roles_Registrar
+    @Nombre VARCHAR(50),
+    @Descripcion VARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar si ya existe
+    IF EXISTS (
+        SELECT 1
+        FROM Roles
+        WHERE Nombre = @Nombre
+    )
+    BEGIN
+        RAISERROR('El rol ya existe.', 16, 1);
+        RETURN;
+    END;
+
+    -- Registrar rol
+    INSERT INTO Roles
+    (
+        Nombre,
+        Descripcion,
+        Activo,
+        FechaCreacion
+    )
+    VALUES
+    (
+        @Nombre,
+        @Descripcion,
+        1,
+        GETDATE()
+    );
+
+    -- Devolver ID generado
+    SELECT
+        SCOPE_IDENTITY() AS RolID,
+        'Rol registrado correctamente.' AS Mensaje;
+END;
+GO
+
+---------------------------------------------
+--Seguridad Actualizar rol
+---------------------------------------------
+CREATE OR ALTER PROCEDURE sp_Roles_Actualizar
+    @RolID INT,
+    @Nombre VARCHAR(50),
+    @Descripcion VARCHAR(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar que exista
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Roles
+        WHERE RolID = @RolID
+    )
+    BEGIN
+        RAISERROR('El rol no existe.', 16, 1);
+        RETURN;
+    END;
+
+    -- Verificar nombre duplicado
+    IF EXISTS (
+        SELECT 1
+        FROM Roles
+        WHERE Nombre = @Nombre
+          AND RolID <> @RolID
+    )
+    BEGIN
+        RAISERROR('Ya existe otro rol con ese nombre.', 16, 1);
+        RETURN;
+    END;
+
+    -- Actualizar
+    UPDATE Roles
+    SET
+        Nombre = @Nombre,
+        Descripcion = @Descripcion
+    WHERE RolID = @RolID;
+
+    SELECT
+        @RolID AS RolID,
+        'Rol actualizado correctamente.' AS Mensaje;
+END;
+GO
+
+--------------------------------------
+--Seguridad Cambiar de estado a rol
+--------------------------------------
+CREATE OR ALTER PROCEDURE sp_Roles_CambiarEstado
+    @RolID INT,
+    @Activo INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar que exista el rol
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Roles
+        WHERE RolID = @RolID
+    )
+    BEGIN
+        RAISERROR('El rol no existe.', 16, 1);
+        RETURN;
+    END;
+
+    -- Validar valor
+    IF @Activo NOT IN (0, 1)
+    BEGIN
+        RAISERROR('El estado debe ser 0 (inactivo) o 1 (activo).', 16, 1);
+        RETURN;
+    END;
+
+    -- No permitir desactivar un rol utilizado por usuarios activos
+    IF @Activo = 0
+       AND EXISTS (
+            SELECT 1
+            FROM Usuarios
+            WHERE RolID = @RolID
+              AND Estado = 'Activo'
+       )
+    BEGIN
+        RAISERROR(
+            'No se puede desactivar el rol porque tiene usuarios activos.',
+            16,
+            1
+        );
+        RETURN;
+    END;
+
+    -- Actualizar estado
+    UPDATE Roles
+    SET Activo = @Activo
+    WHERE RolID = @RolID;
+
+    SELECT
+        @RolID AS RolID,
+        @Activo AS Activo,
+        'Estado del rol actualizado correctamente.' AS Mensaje;
+END;
+GO
+
+---------------------------------------
+--Seguridad Listar sesiones activas
+---------------------------------------
+CREATE OR ALTER PROCEDURE sp_Sesiones_ListarActivas
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        s.SesionID,
+        s.UsuarioID,
+        CONCAT(u.Nombre, ' ', u.Apellido) AS Usuario,
+        u.Email,
+        s.IP,
+        s.Dispositivo,
+        s.FechaInicio,
+        s.FechaExpira,
+        s.Activa
+    FROM Sesiones s
+
+    INNER JOIN Usuarios u
+        ON s.UsuarioID = u.UsuarioID
+
+    WHERE s.Activa = 1
+
+    ORDER BY s.FechaInicio DESC;
+END;
+GO
+
+-----------------------------------------------
+--Seguridad serrar sesiones activas
+-----------------------------------------------
+CREATE OR ALTER PROCEDURE sp_Sesiones_Cerrar
+    @SesionID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Verificar sesión
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Sesiones
+        WHERE SesionID = @SesionID
+    )
+    BEGIN
+        RAISERROR('La sesión no existe.', 16, 1);
+        RETURN;
+    END;
+
+    -- Verificar que esté activa
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Sesiones
+        WHERE SesionID = @SesionID
+          AND Activa = 1
+    )
+    BEGIN
+        RAISERROR('La sesión ya se encuentra cerrada.', 16, 1);
+        RETURN;
+    END;
+
+    -- Cerrar sesión
+    UPDATE Sesiones
+    SET Activa = 0
+    WHERE SesionID = @SesionID;
+
+    SELECT
+        @SesionID AS SesionID,
+        'Sesión cerrada correctamente.' AS Mensaje;
+END;
+GO

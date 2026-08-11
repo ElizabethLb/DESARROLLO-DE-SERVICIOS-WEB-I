@@ -1,50 +1,344 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    string ActiveClass(string controllerName)
+    {
+        var current = ViewContext.RouteData.Values["controller"]?.ToString();
+        return string.Equals(current, controllerName, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    }
+}
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewData["Title"] - BookMatch</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BookMatch.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --purple-1: #3a0ca3;
+            --purple-2: #6a4cff;
+            --accent: #8a2be2;
+            --gold: #ff9f1c;
+            --bg: #f6f4fb;
+            --text-muted: #7b6f9b;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            height: 100%;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background: var(--bg);
+        }
+
+        .app-shell {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ---------- SIDEBAR ---------- */
+        .sidebar {
+            width: 260px;
+            flex-shrink: 0;
+            background: linear-gradient(180deg, var(--purple-1) 0%, #4a1fb8 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 0 6px;
+        }
+
+        .brand .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--gold);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .role-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 159, 28, 0.18);
+            border: 1px solid rgba(255, 159, 28, 0.5);
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 14.5px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            transition: background .15s ease;
+        }
+
+        .nav-item i {
+            font-size: 17px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--gold);
+            color: #fff;
+        }
+
+        .nav-divider {
+            margin: 14px 6px 6px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .sidebar-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 16px;
+        }
+
+        .user-mini {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #3a0ca3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            font-size: 13.5px;
+            font-weight: 600;
+        }
+
+        .logout-link {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+        }
+
+        .logout-link:hover { color: #fff; }
+
+        /* ---------- MAIN AREA ---------- */
+        .main-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            padding: 18px 32px;
+            border-bottom: 1px solid #ececf3;
+        }
+
+        .breadcrumb {
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            font-size: 22px;
+            margin: 2px 0 0;
+            color: #1a1a2e;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .topbar-right i.bi-bell {
+            font-size: 19px;
+            color: var(--text-muted);
+        }
+
+        .user-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar-sm {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--purple-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12.5px;
+        }
+
+        .chip-name {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .chip-role {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .content {
+            flex: 1;
+            padding: 32px;
+        }
+
+        /* ---------- PLACEHOLDER (pantallas por construir) ---------- */
+        .placeholder-box {
+            background: #fff;
+            border: 1px dashed #d8d2ea;
+            border-radius: 16px;
+            padding: 64px 32px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .placeholder-box i {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 14px;
+            display: inline-block;
+        }
+
+        .placeholder-box h2 {
+            color: #1a1a2e;
+            margin: 0 0 8px;
+        }
+
+        @@media (max-width: 900px) {
+            .sidebar { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookMatch</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <div class="logo">★</div>
+                    <span>BookMatch</span>
+                </div>
+
+                <div class="role-badge">
+                    <i class="bi bi-award-fill"></i> Administrador General
+                </div>
+
+                <nav class="nav-menu">
+                    <a class="nav-item @ActiveClass("Dashboard")" href="/Dashboard">
+                        <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                    </a>
+                    <a class="nav-item @ActiveClass("Catalogo")" href="/Catalogo">
+                        <i class="bi bi-journal-bookmark-fill"></i> Catálogo
+                    </a>
+                    <a class="nav-item @ActiveClass("Usuarios")" href="/Usuarios">
+                        <i class="bi bi-people-fill"></i> Usuarios
+                    </a>
+                    <a class="nav-item @ActiveClass("Consultas")" href="/Consultas">
+                        <i class="bi bi-search"></i> Consultas
+                    </a>
+                    <a class="nav-item @ActiveClass("Reportes")" href="/Reportes">
+                        <i class="bi bi-bar-chart-fill"></i> Reportes
+                    </a>
+                    <a class="nav-item @ActiveClass("Seguridad")" href="/Seguridad">
+                        <i class="bi bi-shield-lock-fill"></i> Seguridad
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="user-mini">
+                    <div class="avatar">AG</div>
+                    <div>
+                        <div class="user-name">Administrador General</div>
+                        <a class="logout-link" href="/Home/Logout"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        </aside>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - BookMatch - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="main-wrap">
+            <header class="topbar">
+                <div>
+                    <div class="breadcrumb">BookMatch Platform</div>
+                    <h1 class="page-title">@ViewData["Title"]</h1>
+                </div>
+                <div class="topbar-right">
+                    <i class="bi bi-bell"></i>
+                    <div class="user-chip">
+                        <div class="avatar-sm">AG</div>
+                        <div>
+                            <div class="chip-name">Administrador General</div>
+                            <div class="chip-role">Administrador</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </div>
 </body>
 </html>
